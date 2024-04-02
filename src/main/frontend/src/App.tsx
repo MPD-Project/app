@@ -1,5 +1,4 @@
 import React from "react";
-import "./App.css";
 import "@fortawesome/fontawesome-free/js/all.js";
 
 function App() {
