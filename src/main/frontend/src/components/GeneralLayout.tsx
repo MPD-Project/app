@@ -17,7 +17,7 @@ const GeneralLayout = ({ children }: Props) => {
         </Link>
         <GNB />
       </LeftMenu>
-      {children}
+      <CenterContent>{children}</CenterContent>
       <RightMenu></RightMenu>
     </GeneralLayoutContainer>
   );
@@ -31,6 +31,10 @@ const GeneralLayoutContainer = styled.div`
   grid-template-columns: 1fr 3fr 1fr;
   div {
   }
+`;
+
+const CenterContent = styled.div`
+  height: 100vh;
 `;
 
 const LeftMenu = styled.div`

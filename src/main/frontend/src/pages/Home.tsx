@@ -49,17 +49,17 @@ const TapMenuWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    cursor: pointer;
     color: var(--color-black30);
+    border-bottom: 1px solid var(--color-black20);
     &:nth-child(1) {
       border-right: 1px solid var(--color-black20);
     }
   }
   .active {
     color: var(--color-primary);
-
     background-color: var(--color-black10);
-    box-sizing: border-box;
-    border-collapse: collapse;
+    border-bottom: none;
   }
 `;
 export default Home;
