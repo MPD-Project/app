@@ -8,6 +8,7 @@ import Community from "./pages/Community";
 import Care from "./pages/Care";
 import Wallet from "./pages/Wallet";
 import { PATH } from "./contants/routes";
+import uuid from "react-uuid";
 
 interface RouterElement {
   path: string; // 페이지 경로
@@ -59,7 +60,7 @@ export const routers: RemixRouter = createBrowserRouter(
   routerData.map((router, index) => {
     return {
       path: router.path,
-      element: <GeneralLayout key={index}>{router.element}</GeneralLayout>,
+      element: <GeneralLayout key={uuid()}>{router.element}</GeneralLayout>,
       // errorElement: <NotFound />,
     };
   }),
