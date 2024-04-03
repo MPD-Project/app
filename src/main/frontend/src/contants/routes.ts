@@ -5,4 +5,6 @@ export const PATH = {
   COMMUNITY: "/community",
   CARE: "/care",
   WALLET: "/wallet",
+  Login: "/login",
+  Join: "/join",
 };

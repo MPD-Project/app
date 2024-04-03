@@ -9,6 +9,8 @@ import Care from "./pages/Care";
 import Wallet from "./pages/Wallet";
 import { PATH } from "./contants/routes";
 import uuid from "react-uuid";
+import Login from "./pages/Login";
+import Join from "./pages/Join";
 
 interface RouterElement {
   path: string; // 페이지 경로
@@ -54,6 +56,20 @@ const routerData: RouterElement[] = [
     withAuth: false,
     isAdmin: false,
   },
+  {
+    path : PATH.Login,
+    label: "Login",
+    element: <Login />,
+    withAuth: false,
+    isAdmin: false,
+  },
+  {
+    path : PATH.Join,
+    label: "Join",
+    element: <Join />,
+    withAuth: false,
+    isAdmin: false,
+  }
 ];
 
 export const routers: RemixRouter = createBrowserRouter(

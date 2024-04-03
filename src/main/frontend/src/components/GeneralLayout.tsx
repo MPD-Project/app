@@ -18,7 +18,11 @@ const GeneralLayout = ({ children }: Props) => {
         <GNB />
       </LeftMenu>
       <CenterContent>{children}</CenterContent>
-      <RightMenu></RightMenu>
+      <RightMenu>
+      <Link to={PATH.Login}>
+          <button>Login</button>
+        </Link>
+      </RightMenu>
     </GeneralLayoutContainer>
   );
 };
