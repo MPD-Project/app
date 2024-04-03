@@ -24,7 +24,7 @@ const GeneralLayout = ({ children }: Props) => {
 };
 
 const GeneralLayoutContainer = styled.div`
-  width: 70%;
+  width: 1350px;
   height: 100vh;
   margin: 0 auto;
   display: grid;

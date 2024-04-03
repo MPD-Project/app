@@ -1,6 +1,9 @@
-import React from "react";
+import React, { ReactNode } from "react";
 import { Link } from "react-router-dom";
 import { PATH } from "../contants/routes";
+import styled from "styled-components";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBook, faComments, faHandHoldingMedical, faHouse, faWallet } from "@fortawesome/free-solid-svg-icons";
 
 type Props = {};
 
@@ -8,7 +11,7 @@ interface MenuElement {
   title_en: string;
   title_ko: string;
   path: string;
-  icon: string;
+  icon: JSX.Element;
 }
 
 const GNB = (props: Props) => {
@@ -17,44 +20,95 @@ const GNB = (props: Props) => {
       title_en: "Home",
       title_ko: "홈",
       path: PATH.HOME,
-      icon: "",
+      icon: <FontAwesomeIcon icon={faHouse} />,
     },
     {
       title_en: "Diary",
       title_ko: "일기",
       path: PATH.DIARY,
-      icon: "",
+      icon: <FontAwesomeIcon icon={faBook} />,
     },
     {
       title_en: "Community",
       title_ko: "커뮤니티",
       path: PATH.COMMUNITY,
-      icon: "",
+      icon: <FontAwesomeIcon icon={faComments} />,
     },
     {
       title_en: "Care",
       title_ko: "케어",
       path: PATH.CARE,
-      icon: "",
+      icon: <FontAwesomeIcon icon={faHandHoldingMedical} />,
     },
     {
       title_en: "Wallet",
       title_ko: "지출 관리",
       path: PATH.WALLET,
-      icon: "",
+      icon: <FontAwesomeIcon icon={faWallet} />,
     },
   ];
   return (
-    <div>
+    <MenuContainer>
       {menuList.map((menuItem) => {
         return (
-          <div>
-            <Link to={menuItem.path}>{menuItem.title_en}</Link>
-          </div>
+          <MenuItem>
+            <Link to={menuItem.path}>
+              <i>{menuItem.icon}</i>
+              <div className="text">
+                {menuItem.title_en}
+                <span>{menuItem.title_ko}</span>
+              </div>
+            </Link>
+          </MenuItem>
         );
       })}
-    </div>
+    </MenuContainer>
   );
 };
+
+const MenuContainer = styled.div`
+  padding-top: 4rem;
+`;
+
+const MenuItem = styled.div`
+  a {
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    gap: 1rem;
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--color-black20);
+    padding: 1rem 0;
+    position: relative;
+    i {
+      text-align: center;
+    }
+    .text {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-right: 1.5rem;
+      span {
+        font-size: 12px;
+        font-weight: 400;
+      }
+    }
+    &:hover {
+      color: var(--color-primary);
+      ::after {
+        content: "";
+        width: 4px;
+        height: 2rem;
+        border-radius: 2px 0 0 2px;
+        background-color: var(--color-primary);
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        right: -1px;
+        margin: auto;
+      }
+    }
+  }
+`;
 
 export default GNB;
