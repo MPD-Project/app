@@ -1,16 +1,29 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import  styled  from "styled-components";
 import { PATH } from "../contants/routes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock , faX } from "@fortawesome/free-solid-svg-icons";
+import { faLock , faX , faUnlock } from "@fortawesome/free-solid-svg-icons";
 
+
+
+const OverLay = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    bottom: 0;
+    left:0%;
+    right: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 9999;
+`;
 
 const Logo = styled.img`
     position: absolute;
-    top:140px;
+    top:65px;
     width: 250px;
-    height: 25px;
+    height: 23px;
 `;
 
 
@@ -22,6 +35,9 @@ const LoginBox = styled.div`
     align-items: center;
     background-color: white;
     border-radius: 10px;
+    left: 35%;
+    top: 5%;
+    position: absolute;
 `
 
 const LoginForm = styled.form`
@@ -30,12 +46,12 @@ const LoginForm = styled.form`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top:200px;
+    top:110px;
     input {
         margin: 10px;
         padding-left: 20px;
         background-color: #F0F0F0;
-        color: #828282;
+        color: ${(props)=> props.theme.gray.darker};
         border : none;
         border-radius: 5px;
         width: 330px;
@@ -46,7 +62,7 @@ const LoginForm = styled.form`
     }
 
     & input:last-child {
-        background-color:#FF98BD;
+        background-color:${(props)=> props.theme.pink.lighter};
         color: #ffffff;
         font-weight:bold;
         padding-right:20px;
@@ -57,7 +73,7 @@ const LoginForm = styled.form`
     a {
         padding-right: 175px;
         font-size: 12px;
-        color: #FE2F6E;
+        color:${(props)=> props.theme.pink.veryPink};
         font-weight: bold;
         cursor: pointer;
     }
@@ -67,20 +83,20 @@ const LoginForm = styled.form`
 
 const JoinInfo = styled.div`
     position: absolute;
-    top: 460px;
+    top: 365px;
     display: flex;
     justify-content: center;
     align-items: center;
     p {
         padding-right: 10px;
-        color: #828282;
+        color: ${(props)=> props.theme.gray.darker};
         font-weight: bolder;
         font-size: 12px;
     }
 
     a {
         font-size: 15px;
-        color: #FE2F6E;
+        color: ${(props)=> props.theme.pink.veryPink};
         font-weight: bold;
         cursor: pointer;
     }
@@ -93,11 +109,11 @@ const SnsLogin = styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    top: 500px;
+    top: 420px;
     input {
         margin: 10px;
         background-color: #ffffff;
-        color: #FE2F6E;
+        color: ${(props)=> props.theme.pink.veryPink};
         font-weight: bold;
         border : 1px solid  #FF98BD;
         border-radius: 5px;
@@ -114,26 +130,55 @@ const SnsLogin = styled.div`
 
 
 function Login() {
+    const [seePwd, setSeePwd] = useState(true);
+    const pwdClick = () => {
+        setSeePwd(!seePwd)
+    };
+
+    const modalBack = useNavigate();
+    const handleClose = () => {
+          modalBack("/");
+      };
     return (
-        <LoginBox>
-            <Logo src="/img/logo_basic.png" alt="basic logo"/>
-            <LoginForm method="POST">
-                <input name="loginEmail" type="text" required  placeholder="이메일"/>
-                <FontAwesomeIcon icon={faLock} color="#FE2F6E" size="lg"/>
-                <input name="loginPwd" type="password" required placeholder="비밀번호"/>
-                <a href="">비밀번호를 잊어버리셨나요?</a>
-                <input type="button" value="로그인" />
-            </LoginForm>
-            <JoinInfo>
-                <p>계정이 없으신가요?</p>
-                <Link to={PATH.Join}>회원가입</Link>
-            </JoinInfo>
-            <SnsLogin>
-                <input type="button" value="구글 로그인" />
-                <input type="button" value="카카오톡 로그인" />
-                <input type="button" value="네이버 로그인" />
-            </SnsLogin>
-        </LoginBox>
+        <OverLay>
+            <LoginBox>
+                    <FontAwesomeIcon onClick={handleClose} 
+                                     icon={faX} 
+                                     color="#D9D9D9" 
+                                     size="xl" 
+                                     style={{position:"absolute", top:20, right: 28, cursor: "pointer"  }}/>
+                    <Logo src="/img/logo_basic.png" alt="basic logo"/>
+                    <LoginForm method="POST">
+                        <input name="loginEmail" type="text" required  placeholder="이메일"/>
+                        { seePwd ? 
+                        <FontAwesomeIcon 
+                                        onClick={pwdClick}
+                                        icon={faLock} 
+                                        color="#FE2F6E" 
+                                        size="lg" 
+                                        style={{position:"absolute", top:95, right: 28, cursor: "pointer" }}/>
+                        :
+                            <FontAwesomeIcon 
+                                onClick={pwdClick}
+                                icon={faUnlock} 
+                                color="#FE2F6E" 
+                                size="lg" 
+                                style={{position:"absolute", top:95, right: 28, cursor: "pointer" }}/> }
+                        <input name="loginPwd" type={ seePwd ? "password" : "text" } required placeholder="비밀번호"/>
+                        <a href="">비밀번호를 잊어버리셨나요?</a>
+                        <input type="button" value="로그인" />
+                    </LoginForm>
+                    <JoinInfo>
+                        <p>계정이 없으신가요?</p>
+                        <Link to={PATH.Join}>회원가입</Link>
+                    </JoinInfo>
+                    <SnsLogin>
+                        <input type="button" value="구글 로그인" />
+                        <input type="button" value="카카오톡 로그인" />
+                        <input type="button" value="네이버 로그인" />
+                    </SnsLogin>
+            </LoginBox>
+        </OverLay>
     );
 
 }

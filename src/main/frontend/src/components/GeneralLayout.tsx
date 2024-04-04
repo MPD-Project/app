@@ -1,14 +1,27 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link} from "react-router-dom";
 import styled from "styled-components";
 import GNB from "./GNB";
 import { PATH } from "../contants/routes";
+import Login from "../pages/Login";
+
 
 type Props = {
   children: React.ReactNode;
 };
 
-const GeneralLayout = ({ children }: Props) => {
+type Modal = {
+  ModalClick  : boolean;
+};
+
+const GeneralLayout = ({ children }: Props , { ModalClick} : any) => {
+  const [modalOpen, setModalOpen]= useState(false);
+
+  const showModal = () => {
+    setModalOpen(true);
+  };
+
+
   return (
     <GeneralLayoutContainer>
       <LeftMenu>
@@ -19,9 +32,10 @@ const GeneralLayout = ({ children }: Props) => {
       </LeftMenu>
       <CenterContent>{children}</CenterContent>
       <RightMenu>
-      <Link to={PATH.Login}>
-          <button>Login</button>
-        </Link>
+        <Link to={PATH.Login}> 
+          <button onClick={showModal}>Login</button>
+       
+        </Link> 
       </RightMenu>
     </GeneralLayoutContainer>
   );
