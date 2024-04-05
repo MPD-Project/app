@@ -1,12 +1,18 @@
 import React from "react";
 import styled from "styled-components";
+import Card from "../Common/Card";
+import HomeForyouCard from "./HomeForyouCard";
+
 type Props = {};
 
 const HomeForyou = (props: Props) => {
   return (
     <ContentWrap>
-      HomeForyou
-      <div></div>
+      <div>
+        <Card>
+          <HomeForyouCard />
+        </Card>
+      </div>
     </ContentWrap>
   );
 };
@@ -16,9 +22,7 @@ const ContentWrap = styled.div`
   height: calc(100vh - 60px);
   overflow: auto;
   background-color: var(--color-black10);
-  div {
-    height: 200vh;
-  }
+  padding: 20px;
 `;
 
 export default HomeForyou;
