@@ -1,9 +1,15 @@
-import React from "react";
+import React ,{useState} from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
 import  styled  from "styled-components";
 import { faX, faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { AnimatePresence, motion } from "framer-motion";
+import EmailCode from "../components/Join/EmailCode";
+import Password from "../components/Join/Password";
+import Petprofile from "../components/Join/Petprofile";
+import Done from "../components/Join/Done";
+import Email from "../components/Join/Email";
 
 
 
@@ -52,29 +58,25 @@ const JoinTap = styled.div`
 
 `;
 
-const JoinNext = styled.div`
-    position: absolute;
-    display: flex;
-    justify-content: center;
-
-    div {
-        width: 55px;
-        height: 6px;
-        background-color: #D9D9D9;
-    }
-`;
 
 
 function Join(){
+    const [step , setStep] = useState(1);
     const modalBack = useNavigate();
     const handleClose = () => {
         modalBack("/");
     };
+    const hadlePrev = () => {
+        modalBack(-1);
+    };
+
     return (
     <OverLay>
         <JoinBox>
             <JoinTap>
-            <FontAwesomeIcon icon={faChevronLeft} 
+            <FontAwesomeIcon 
+                            onClick={hadlePrev}
+                             icon={faChevronLeft} 
                              color="#D9D9D9" 
                              size="xl"
                              style={{position:"absolute", top:-5, right: 200,cursor: "pointer"  }} 
@@ -86,14 +88,12 @@ function Join(){
                              style={{position:"absolute", top:-5, left:200,cursor: "pointer"  }}/>
                 <h2>회원가입</h2>
             </JoinTap>
-            <JoinNext>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-               <div></div>
-            </JoinNext>
             <Logo src="/img/logo_basic.png" alt="basic logo"/>
+                {step === 1 && <Email setStep={setStep} />}
+                {step === 2 && <EmailCode setStep={setStep} />}
+                {step === 3 && <Password setStep={setStep} />}
+                {step === 4 && <Petprofile setStep={setStep} />}
+                {step === 5 && <Done setStep={setStep} />}
         </JoinBox>
     </OverLay>
     )
