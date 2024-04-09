@@ -1,0 +1,9 @@
+logging:
+  level:
+    root: info
+
+spring:
+  application:
+    name: app
+
+

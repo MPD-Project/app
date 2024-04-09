@@ -1,4 +1,6 @@
 package org.mpd.app.service.login;
 
-public interface LoginService {
+import org.springframework.security.core.userdetails.UserDetailsService;
+
+public interface LoginService extends UserDetailsService {
 }
