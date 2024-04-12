@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import  styled  from "styled-components";
 
 const JoinNext = styled.div`
@@ -44,7 +44,7 @@ const JoinInfo = styled.div`
     height: 44px;
     display: flex;
     flex-direction: column;
-    top: 200px;
+    top: 180px;
     right: 100px;
     span {
         color: ${(props)=> props.theme.gray.darker};        
@@ -61,8 +61,13 @@ const JoinForm = styled.form`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top:270px;
-    input {
+    top:240px;
+
+    & input:first-child {
+        display: none;
+    }
+    
+   & input:last-child {
         margin: 10px;
         padding-left: 20px;
         background-color: #F0F0F0;
@@ -77,11 +82,27 @@ const JoinForm = styled.form`
     }
 
     span {
-        margin-right: 210px;
+        margin-right: 190px;
+        display: flex;
         color: ${(props)=> props.theme.pink.lighter};
         font-weight: 550;
         font-size: 15px;
         line-height: 120%;
+        margin-bottom: 5px;
+    }
+
+    p {
+        padding-left: 3px;
+        color: ${(props)=> props.theme.pink.lighter};
+        font-weight: 550;
+        font-size: 13px;
+        line-height: 120%;
+    }
+    
+    img {
+        width: 110px;
+        height: 110px;
+        border-radius: 50%;
     }
 `;
 
@@ -104,9 +125,10 @@ type Props = {
   };
  
 function Done ({ setStep }: Props) {
+    const [ img, setImg ] = useState("/img/profile.jpeg");
     return(
         <>
-                 <JoinNext>
+            <JoinNext>
             <div></div>
             <div></div>
             <div></div>
@@ -117,9 +139,10 @@ function Done ({ setStep }: Props) {
             <span>프로필을 설정해주세요.</span>
         </JoinInfo>
         <JoinForm>
-            <span>프로필 사진(선택)</span>
-            <input type="text" placeholder="반려동물 이름"/>
-            <span>닉네임 (*필수)</span>
+            <span>프로필 사진<p>(선택)</p></span>
+            <img src={img} />
+            <input type="file" accept='image/jpg,impge/png,image/jpeg' />
+            <span>닉네임<p>(*필수)</p></span>
             <input type="text" placeholder="닉네임"/>
         </JoinForm>
         <NextBtn>완료</NextBtn>

@@ -1,6 +1,7 @@
 import React  from "react";
 import  styled  from "styled-components";
 import { useForm } from "react-hook-form";
+import { Link } from "react-router-dom";
 
 
 
@@ -31,12 +32,12 @@ const JoinNext = styled.div`
 
 const JoinInfo = styled.div`
     position: absolute;
-    width: 264px;
+    width: 320px;
     height: 44px;
     display: flex;
     flex-direction: column;
     top: 200px;
-    right: 100px;
+    right: 50px;
     span {
         color: ${(props)=> props.theme.gray.darker};        
         font-weight: 500;
@@ -81,6 +82,14 @@ const NextBtn= styled.button`
         cursor: pointer;
 `;
 
+const CodeError = styled.span`
+        position: absolute;
+        top: 350px;
+        font-size: 12px;
+        color:${(props)=> props.theme.pink.veryPink};
+        font-weight: bold;
+        cursor: pointer;
+`;
 
 const ERROR = styled.span `
     position: absolute;
@@ -127,7 +136,9 @@ function EmailCode ({ setStep }: Props) {
                 },
             })} placeholder="인증코드" />
             </JoinForm>
-            <ERROR>이메일을 받지 못하셨나요?</ERROR>
+            <CodeError>
+                <Link to="/">이메일을 받지 못하셨나요?</Link>
+            </CodeError>
             <ERROR>{errors.email?.message}</ERROR>
             <NextBtn onClick={()=> setStep(3)}>다음</NextBtn>
         </>

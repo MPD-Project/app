@@ -1,7 +1,8 @@
-import React  from "react";
+import React, { useState }  from "react";
 import  styled  from "styled-components";
 import { useForm } from "react-hook-form";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faLock , faUnlock } from "@fortawesome/free-solid-svg-icons";
 
 
 
@@ -35,12 +36,12 @@ const JoinNext = styled.div`
 
 const JoinInfo = styled.div`
     position: absolute;
-    width: 264px;
+    width: 300px;
     height: 44px;
     display: flex;
     flex-direction: column;
     top: 200px;
-    right: 100px;
+    right: 70px;
     span {
         color: ${(props)=> props.theme.gray.darker};        
         font-weight: 500;
@@ -59,7 +60,7 @@ const JoinForm = styled.form`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top:270px;
+    top:250px;
     input {
         margin: 10px;
         padding-left: 20px;
@@ -120,6 +121,10 @@ function Password ({ setStep }: Props) {
             );
         }
     }
+    const [seePwd, setSeePwd] = useState(true);
+    const pwdClick = () => {
+        setSeePwd(!seePwd)
+    };
     return (
         <>
             <JoinNext>
@@ -134,6 +139,20 @@ function Password ({ setStep }: Props) {
                 <span>영문, 숫자, 특수문자 포함 8글자 이상이어야합니다.</span>
             </JoinInfo>
             <JoinForm onSubmit={handleSubmit(onValue)}>
+            { seePwd ? 
+            <FontAwesomeIcon 
+                            onClick={pwdClick}
+                            icon={faLock} 
+                            color="#FE2F6E" 
+                            size="lg" 
+                            style={{position:"absolute", top:25, right: 28, cursor: "pointer" }}/>
+                        :
+                            <FontAwesomeIcon 
+                                onClick={pwdClick}
+                                icon={faUnlock} 
+                                color="#FE2F6E" 
+                                size="lg" 
+                                style={{position:"absolute", top:25, right: 28, cursor: "pointer" }}/> }
             <input {...register("passWord", {
                 required: {
                     value: true,

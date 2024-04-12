@@ -40,7 +40,7 @@ const JoinInfo = styled.div`
     height: 44px;
     display: flex;
     flex-direction: column;
-    top: 200px;
+    top: 175px;
     right: 100px;
     span {
         color: ${(props)=> props.theme.gray.darker};        
@@ -57,7 +57,7 @@ const JoinForm = styled.form`
     justify-content: center;
     align-items: center;
     position: absolute;
-    top:270px;
+    top:230px;
     input {
         margin: 10px;
         padding-left: 20px;
@@ -70,6 +70,21 @@ const JoinForm = styled.form`
         &:focus {
             outline: none;
         }
+    }
+
+    & input:last-child {
+        cursor: pointer;
+    }
+
+    select {
+        margin: 10px;
+        padding-left: 20px;
+        background-color: #F0F0F0;
+        color: ${(props)=> props.theme.gray.darker};
+        border : none;
+        border-radius: 5px;
+        width: 330px;
+        height: 50px;
     }
 
     span {
@@ -129,7 +144,6 @@ function Petprofile ({ setStep }: Props) {
                 <option value="bird">새</option>
                 <option value="rodent">햄스터(설치류)</option>
                 <option value="fish">물고기</option>
-                <option value="etc">물고기</option>
             </select>
             <span>반려동물 생일</span>
             <input type="date" />
