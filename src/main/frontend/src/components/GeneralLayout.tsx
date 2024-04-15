@@ -33,8 +33,7 @@ const GeneralLayout = ({ children }: Props , { ModalClick} : any) => {
       <CenterContent>{children}</CenterContent>
       <RightMenu>
         <Link to={PATH.Login}> 
-          <button onClick={showModal}>Login</button>
-       
+          <LoginBtn onClick={showModal}>로그인</LoginBtn>
         </Link> 
       </RightMenu>
     </GeneralLayoutContainer>
@@ -69,5 +68,19 @@ const RightMenu = styled.div`
   border-left: 1px solid var(--color-black20);
   padding: 1em 1em 1em 0;
 `;
+
+
+const LoginBtn = styled.button`
+  position: absolute;
+  width: 200px;
+  height: 50px;
+  color: white;
+  background-color: ${(props)=> props.theme.pink.lighter};
+  border-radius: 5px;
+  border: none;
+  font-weight: bolder;
+  cursor: pointer;
+`;
+
 
 export default GeneralLayout;

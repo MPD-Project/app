@@ -144,6 +144,7 @@ function Petprofile ({ setStep }: Props) {
                 <option value="bird">새</option>
                 <option value="rodent">햄스터(설치류)</option>
                 <option value="fish">물고기</option>
+                <option value="etc">기타</option>
             </select>
             <span>반려동물 생일</span>
             <input type="date" />

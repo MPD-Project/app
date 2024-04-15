@@ -128,8 +128,14 @@ const SnsLogin = styled.div`
         
 `;
 
+function Login(){
+    //로그인 처리 로직
+    const [email, setEmail] = useState("");
+    const [ pwd , setPwd ] = useState("");
+    const handleLogin = async (event : React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+    };
 
-function Login() {
     const [seePwd, setSeePwd] = useState(true);
     const pwdClick = () => {
         setSeePwd(!seePwd)
@@ -139,6 +145,7 @@ function Login() {
     const handleClose = () => {
           modalBack("/");
       };
+    
     return (
         <OverLay>
             <LoginBox>
@@ -148,8 +155,15 @@ function Login() {
                                      size="xl" 
                                      style={{position:"absolute", top:20, right: 28, cursor: "pointer"  }}/>
                     <Logo src="/img/logo_basic.png" alt="basic logo"/>
-                    <LoginForm method="POST">
-                        <input name="loginEmail" type="text" required  placeholder="이메일"/>
+                    <LoginForm onSubmit={handleLogin}>
+                        <input 
+                            name="loginEmail" 
+                            type="text" 
+                            required  
+                            value={email}
+                            onChange={(e)=> setEmail(e.currentTarget.value)}
+                            placeholder="이메일"
+                            />
                         { seePwd ? 
                         <FontAwesomeIcon 
                                         onClick={pwdClick}
@@ -164,7 +178,14 @@ function Login() {
                                 color="#FE2F6E" 
                                 size="lg" 
                                 style={{position:"absolute", top:95, right: 28, cursor: "pointer" }}/> }
-                        <input name="loginPwd" type={ seePwd ? "password" : "text" } required placeholder="비밀번호"/>
+                        <input 
+                            name="loginPwd" 
+                            type={ seePwd ? "password" : "text" } 
+                            required 
+                            placeholder="비밀번호"
+                            value={pwd}
+                            onChange={(e)=>setPwd(e.currentTarget.value)}
+                            />
                         <a href="">비밀번호를 잊어버리셨나요?</a>
                         <input type="button" value="로그인" />
                     </LoginForm>
