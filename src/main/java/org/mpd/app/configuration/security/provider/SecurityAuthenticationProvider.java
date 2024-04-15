@@ -3,6 +3,7 @@ package org.mpd.app.configuration.security.provider;
 import org.mpd.app.service.login.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
@@ -28,7 +29,13 @@ public class SecurityAuthenticationProvider implements AuthenticationProvider {
 
         User user = (User)loginService.loadUserByUsername(username);
 
-        return null;
+        if(passwordEncoder.matches(password, user.getPassword())) {
+            throw new BadCredentialsException("회원가입이 되지 않았거나 비밀번호가 틀린 회원입니다. 다시 확인해주세요.");
+        }
+
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(username, password, user.getAuthorities());
+
+        return authToken;
     }
 
     @Override
