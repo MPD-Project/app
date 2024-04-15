@@ -5,5 +5,11 @@ logging:
 spring:
   application:
     name: app
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/mpd?serverTimezone=Asia/Seoul
+    username: mpdadmin
+    password: 1234
+
 
 
