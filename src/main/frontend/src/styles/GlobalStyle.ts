@@ -15,7 +15,7 @@ export const GlobalStyle = createGlobalStyle`
     --color-visible30: ${(props) => props.theme.visible30};
     --color-visible20: ${(props) => props.theme.visible20};
     --color-visible10: ${(props) => props.theme.visible10};
-    --color-visible00: ${(props) => props.theme.visible00}
+    --color-visible00: ${(props) => props.theme.visible00};
   }
   ${reset};
 
