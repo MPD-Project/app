@@ -50,15 +50,15 @@ const TapMenuWrap = styled.div`
     justify-content: center;
     align-items: center;
     cursor: pointer;
-    color: var(--color-black30);
-    border-bottom: 1px solid var(--color-black20);
+    color: var(--color-visible30);
+    border-bottom: 1px solid var(--color-visible20);
     &:nth-child(1) {
-      border-right: 1px solid var(--color-black20);
+      border-right: 1px solid var(--color-visible20);
     }
   }
   .active {
     color: var(--color-primary);
-    background-color: var(--color-black10);
+    background-color: var(--color-visible10);
     border-bottom: none;
   }
 `;

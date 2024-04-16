@@ -21,7 +21,7 @@ const ContentWrap = styled.div`
   width: 100%;
   height: calc(100vh - 60px);
   overflow: auto;
-  background-color: var(--color-black10);
+  background-color: var(--color-visible10);
   padding: 20px;
 `;
 

@@ -80,7 +80,7 @@ const MenuItem = styled.div`
   gap: 1rem;
   font-size: 1.3rem;
   font-weight: 500;
-  color: var(--color-black20);
+  color: var(--color-visible20);
   padding: 1rem 0;
   position: relative;
   i {

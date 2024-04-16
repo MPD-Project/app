@@ -55,7 +55,7 @@ const TitleArea = styled.div`
       font-size: 24px;
       font-weight: 700;
       display: inline;
-      color: var(--color-black90);
+      color: var(--color-visible90);
     }
   }
   .right {
@@ -68,7 +68,7 @@ const TitleArea = styled.div`
     }
     .date {
       font-size: 14px;
-      color: var(--color-black50);
+      color: var(--color-visible50);
     }
   }
 `;
@@ -89,7 +89,7 @@ const ProfileArea = styled.div`
   p {
     padding-left: 10px;
     font-weight: 600;
-    color: var(--color-black90);
+    color: var(--color-visible90);
   }
 `;
 
@@ -98,7 +98,7 @@ const ContentArea = styled.div`
   margin-top: 25px;
   p {
     font-size: 15px;
-    color: var(--color-black50);
+    color: var(--color-visible50);
     line-height: 1.2;
   }
   .content-image {

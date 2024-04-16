@@ -3,18 +3,19 @@ import reset from "styled-reset";
 
 export const GlobalStyle = createGlobalStyle`
   :root{
-    --color-primary: #FF98BD;
-    --color-point: #FE2F6E;
-    --color-black90: #262626;
-    --color-black80: #3C3C3C;
-    --color-black70: #515151;
-    --color-black60: #676767;
-    --color-black50: #7D7D7D;
-    --color-black40: #A8A8A8;
-    --color-black30: #BEBEBE;
-    --color-black20: #D4D4D4;
-    --color-black10: #FCFCFC;
-    --color-white: #FFFFFF;
+    --color-primary: ${(props) => props.theme.color.primary};
+    --color-point: ${(props) => props.theme.color.point};
+    --color-bgColor: ${(props) => props.theme.bgColor};
+    --color-visible90: ${(props) => props.theme.visible90};
+    --color-visible80: ${(props) => props.theme.visible80};
+    --color-visible70: ${(props) => props.theme.visible70};
+    --color-visible60: ${(props) => props.theme.visible60};
+    --color-visible50: ${(props) => props.theme.visible50};
+    --color-visible40: ${(props) => props.theme.visible40};
+    --color-visible30: ${(props) => props.theme.visible30};
+    --color-visible20: ${(props) => props.theme.visible20};
+    --color-visible10: ${(props) => props.theme.visible10};
+    --color-visible00: ${(props) => props.theme.visible00}
   }
   ${reset};
 

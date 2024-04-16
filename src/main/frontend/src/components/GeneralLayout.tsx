@@ -1,26 +1,24 @@
 import React, { useState } from "react";
-import { Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import GNB from "./GNB";
 import { PATH } from "../contants/routes";
 import Login from "../pages/Login";
-
 
 type Props = {
   children: React.ReactNode;
 };
 
 type Modal = {
-  ModalClick  : boolean;
+  ModalClick: boolean;
 };
 
-const GeneralLayout = ({ children }: Props , { ModalClick} : any) => {
-  const [modalOpen, setModalOpen]= useState(false);
+const GeneralLayout = ({ children }: Props, { ModalClick }: any) => {
+  const [modalOpen, setModalOpen] = useState(false);
 
   const showModal = () => {
     setModalOpen(true);
   };
-
 
   return (
     <GeneralLayoutContainer>
@@ -32,9 +30,9 @@ const GeneralLayout = ({ children }: Props , { ModalClick} : any) => {
       </LeftMenu>
       <CenterContent>{children}</CenterContent>
       <RightMenu>
-        <Link to={PATH.Login}> 
+        <Link to={PATH.Login}>
           <LoginBtn onClick={showModal}>로그인</LoginBtn>
-        </Link> 
+        </Link>
       </RightMenu>
     </GeneralLayoutContainer>
   );
@@ -55,7 +53,7 @@ const CenterContent = styled.div`
 `;
 
 const LeftMenu = styled.div`
-  border-right: 1px solid var(--color-black20);
+  border-right: 1px solid var(--color-visible20);
   width: 100%;
   padding: 1em 0 1em 1em;
   img {
@@ -65,22 +63,20 @@ const LeftMenu = styled.div`
 `;
 
 const RightMenu = styled.div`
-  border-left: 1px solid var(--color-black20);
+  border-left: 1px solid var(--color-visible20);
   padding: 1em 1em 1em 0;
 `;
-
 
 const LoginBtn = styled.button`
   position: absolute;
   width: 200px;
   height: 50px;
   color: white;
-  background-color: ${(props)=> props.theme.pink.lighter};
+  background-color: var(--color-primary);
   border-radius: 5px;
   border: none;
   font-weight: bolder;
   cursor: pointer;
 `;
-
 
 export default GeneralLayout;
