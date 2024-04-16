@@ -8,7 +8,6 @@ type Props = {};
 const HomeForyou = (props: Props) => {
   return (
     <ContentWrap>
-      {/* <div> */}
       <Card>
         <HomeForyouCard />
       </Card>
@@ -21,7 +20,6 @@ const HomeForyou = (props: Props) => {
       <Card>
         <HomeForyouCard />
       </Card>
-      {/* </div> */}
     </ContentWrap>
   );
 };
