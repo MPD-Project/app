@@ -60,16 +60,13 @@ const JoinTap = styled.div`
 
 
 
-function Join(){
+function Join(props: any){
     const [step , setStep] = useState(1);
     const modalBack = useNavigate();
-    const handleClose = () => {
-        modalBack("/");
-    };
     const hadlePrev = () => {
         modalBack(-1);
     };
-
+    const { onClose } = props;
     return (
     <OverLay>
         <JoinBox>
@@ -81,7 +78,7 @@ function Join(){
                              size="xl"
                              style={{position:"absolute", top:-5, right: 200,cursor: "pointer"  }} 
                              />
-            <FontAwesomeIcon onClick={handleClose} 
+            <FontAwesomeIcon onClick={() =>{onClose(false)}}
                              icon={faX} 
                              color="#D9D9D9" 
                              size="xl" 

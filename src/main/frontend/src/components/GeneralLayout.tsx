@@ -4,22 +4,15 @@ import styled from "styled-components";
 import GNB from "./GNB";
 import { PATH } from "../contants/routes";
 import Login from "../pages/Login";
+import { AnyCnameRecord } from "dns";
 
 type Props = {
   children: React.ReactNode;
 };
 
-type Modal = {
-  ModalClick: boolean;
-};
 
-const GeneralLayout = ({ children }: Props, { ModalClick }: any) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const showModal = () => {
-    setModalOpen(true);
-  };
-
+const GeneralLayout = ({ children }: Props  ) => {
+  const [modalOpen, setModalOpen]= useState(false);
   return (
     <GeneralLayoutContainer>
       <LeftMenu>
@@ -30,9 +23,9 @@ const GeneralLayout = ({ children }: Props, { ModalClick }: any) => {
       </LeftMenu>
       <CenterContent>{children}</CenterContent>
       <RightMenu>
-        <Link to={PATH.Login}>
-          <LoginBtn onClick={showModal}>로그인</LoginBtn>
-        </Link>
+          <LoginBtn onClick={()=> setModalOpen(!modalOpen)}>로그인</LoginBtn>
+          { modalOpen ?
+            <Login onClose={setModalOpen} /> : null }
       </RightMenu>
     </GeneralLayoutContainer>
   );

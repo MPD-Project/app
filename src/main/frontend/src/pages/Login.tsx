@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { PATH } from "../contants/routes";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faLock, faX, faUnlock } from "@fortawesome/free-solid-svg-icons";
+import { faLock , faX , faUnlock } from "@fortawesome/free-solid-svg-icons";
+import Join from "./Join";
+
 
 const OverLay = styled.div`
   position: fixed;
@@ -89,13 +89,13 @@ const JoinInfo = styled.div`
     font-size: 12px;
   }
 
-  a {
-    font-size: 15px;
-    color: var(--color-point);
-    font-weight: bold;
-    cursor: pointer;
-  }
-`;
+    span {
+        font-size: 15px;
+        color: ${(props)=> props.theme.pink.veryPink};
+        font-weight: bold;
+        cursor: pointer;
+    }
+  `;
 
 const SnsLogin = styled.div`
   position: absolute;
@@ -121,84 +121,78 @@ const SnsLogin = styled.div`
   }
 `;
 
-function Login() {
-  //로그인 처리 로직
-  const [email, setEmail] = useState("");
-  const [pwd, setPwd] = useState("");
-  const handleLogin = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-  };
+function Login( props: any ){
+    //로그인 처리 로직
+    const [email, setEmail] = useState("");
+    const [ pwd , setPwd ] = useState("");
+    const handleLogin = async (event : React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+    };
 
   const [seePwd, setSeePwd] = useState(true);
   const pwdClick = () => {
     setSeePwd(!seePwd);
   };
 
-  const modalBack = useNavigate();
-  const handleClose = () => {
-    modalBack("/");
-  };
+    const { onClose } = props;
+    const [modalOpen, setModalOpen]= useState(false);
 
-  return (
-    <OverLay>
-      <LoginBox>
-        <FontAwesomeIcon
-          onClick={handleClose}
-          icon={faX}
-          color="#D9D9D9"
-          size="xl"
-          style={{ position: "absolute", top: 20, right: 28, cursor: "pointer" }}
-        />
-        <Logo src="/img/logo_basic.png" alt="basic logo" />
-        <LoginForm onSubmit={handleLogin}>
-          <input
-            name="loginEmail"
-            type="text"
-            required
-            value={email}
-            onChange={(e) => setEmail(e.currentTarget.value)}
-            placeholder="이메일"
-          />
-          {seePwd ? (
-            <FontAwesomeIcon
-              onClick={pwdClick}
-              icon={faLock}
-              color="#FE2F6E"
-              size="lg"
-              style={{ position: "absolute", top: 95, right: 28, cursor: "pointer" }}
-            />
-          ) : (
-            <FontAwesomeIcon
-              onClick={pwdClick}
-              icon={faUnlock}
-              color="#FE2F6E"
-              size="lg"
-              style={{ position: "absolute", top: 95, right: 28, cursor: "pointer" }}
-            />
-          )}
-          <input
-            name="loginPwd"
-            type={seePwd ? "password" : "text"}
-            required
-            placeholder="비밀번호"
-            value={pwd}
-            onChange={(e) => setPwd(e.currentTarget.value)}
-          />
-          <a href="">비밀번호를 잊어버리셨나요?</a>
-          <input type="button" value="로그인" />
-        </LoginForm>
-        <JoinInfo>
-          <p>계정이 없으신가요?</p>
-          <Link to={PATH.Join}>회원가입</Link>
-        </JoinInfo>
-        <SnsLogin>
-          <input type="button" value="구글 로그인" />
-          <input type="button" value="카카오톡 로그인" />
-          <input type="button" value="네이버 로그인" />
-        </SnsLogin>
-      </LoginBox>
-    </OverLay>
-  );
+    return (
+        <OverLay>
+            <LoginBox>
+                    <FontAwesomeIcon onClick={() => {onClose(false)}}
+                                     icon={faX} 
+                                     color="#D9D9D9" 
+                                     size="xl" 
+                                     style={{position:"absolute", top:20, right: 28, cursor: "pointer"  }}/>
+                    <Logo src="/img/logo_basic.png" alt="basic logo"/>
+                    <LoginForm onSubmit={handleLogin}>
+                        <input 
+                            name="loginEmail" 
+                            type="text" 
+                            required  
+                            value={email}
+                            onChange={(e)=> setEmail(e.currentTarget.value)}
+                            placeholder="이메일"
+                            />
+                        { seePwd ? 
+                        <FontAwesomeIcon 
+                                        onClick={pwdClick}
+                                        icon={faLock} 
+                                        color="#FE2F6E" 
+                                        size="lg" 
+                                        style={{position:"absolute", top:95, right: 28, cursor: "pointer" }}/>
+                        :
+                            <FontAwesomeIcon 
+                                onClick={pwdClick}
+                                icon={faUnlock} 
+                                color="#FE2F6E" 
+                                size="lg" 
+                                style={{position:"absolute", top:95, right: 28, cursor: "pointer" }}/> }
+                        <input 
+                            name="loginPwd" 
+                            type={ seePwd ? "password" : "text" } 
+                            required 
+                            placeholder="비밀번호"
+                            value={pwd}
+                            onChange={(e)=>setPwd(e.currentTarget.value)}
+                            />
+                        <a href="">비밀번호를 잊어버리셨나요?</a>
+                        <input type="button" value="로그인" />
+                    </LoginForm>
+                    <JoinInfo>
+                        <p>계정이 없으신가요?</p>
+                        <span onClick={()=> setModalOpen(!modalOpen)}>회원가입</span>
+                    </JoinInfo>
+                    <SnsLogin>
+                        <input type="button" value="구글 로그인" />
+                        <input type="button" value="카카오톡 로그인" />
+                        <input type="button" value="네이버 로그인" />
+                    </SnsLogin>
+            </LoginBox>
+                    { modalOpen ? <Join onClose={setModalOpen}/> : null }
+        </OverLay>
+    );
 }
 
 export default Login;
