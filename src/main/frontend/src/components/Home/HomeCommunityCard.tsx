@@ -11,7 +11,7 @@ const HomeCommunityCard = (props: Props) => {
     <>
       <TitleArea>
         <div className="left">
-          <h3 className="title">2024년 3월 30일</h3>
+          <h3 className="title">우리 집 강아지 재롱보고 갈 사람</h3>
           <ProfileArea>
             <div className="profile-image">
               <Link to="">
@@ -22,7 +22,7 @@ const HomeCommunityCard = (props: Props) => {
           </ProfileArea>
         </div>
         <div className="right">
-          <p className="type">마이 일기</p>
+          <p className="type">실시간 커뮤니티 &#62; 내 새끼 자랑</p>
           <p className="date">2024년 3월 20일 19:14 작성</p>
         </div>
       </TitleArea>
