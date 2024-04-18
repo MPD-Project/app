@@ -10,6 +10,10 @@ spring:
     url: jdbc:mysql://localhost:3306/mpd?serverTimezone=Asia/Seoul
     username: mpdadmin
     password: 1234
+  mvc:
+    view:
+      prefix: classpath:templates/
+      suffix: .html
 
-
-
+server:
+  port: 8079

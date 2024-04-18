@@ -52,6 +52,8 @@ sourceSets {
 }
 
 processResources { dependsOn "copyReactBuildFiles" }
+processResources { dependsOn "copyJsFiles" }
+processResources { dependsOn "copyIndexHtml" }
 
 task installReact(type: Exec) {
     workingDir "$frontendDir"
@@ -79,8 +81,26 @@ task buildReact(type: Exec) {
 
 task copyReactBuildFiles(type: Copy) {
     dependsOn "buildReact"
-    from "$frontendDir/build"
+    from("$frontendDir/build") {
+        exclude 'static/**','**/index.html'
+    }
     into "$projectDir/src/main/resources/static"
+
+}
+
+task copyJsFiles(type: Copy) {
+    dependsOn "copyReactBuildFiles"
+
+    from "$frontendDir/build/static/js"
+    into "$projectDir/src/main/resources/static/js"
+
+}
+
+task copyIndexHtml(type: Copy) {
+    dependsOn "copyJsFiles"
+
+    from "$frontendDir/build/index.html"
+    into "$projectDir/src/main/resources/templates"
 }
 
 tasks.named('test') {
