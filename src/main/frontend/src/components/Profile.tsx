@@ -15,16 +15,18 @@ const Profile = (props: Props) => {
       <PetArea>
         <h3>나의 PET 정보</h3>
         <dl>
-          <dt>이름</dt>
-          <dd>호떡</dd>
-        </dl>
-        <dl>
-          <dt>종</dt>
-          <dd>강아지</dd>
-        </dl>
-        <dl>
-          <dt>생일</dt>
-          <dd>2017.03.19</dd>
+          <div>
+            <dt>이름</dt>
+            <dd>호떡 ♂</dd>
+          </div>
+          <div>
+            <dt>종</dt>
+            <dd>강아지</dd>
+          </div>
+          <div>
+            <dt>생일</dt>
+            <dd>2017.03.19</dd>
+          </div>
         </dl>
       </PetArea>
     </ProfileContainer>
@@ -68,10 +70,24 @@ const PetArea = styled.div`
   }
   dl {
     display: flex;
-    flex-wrap: wrap;
-    dd,
-    dt {
+    margin-top: 15px;
+    div {
       width: 100%;
+      text-align: center;
+      padding: 0 10px;
+      box-sizing: border-box;
+      dt {
+        padding-bottom: 10px;
+        font-size: 14px;
+        color: var(--color-visible40);
+      }
+      dd {
+        color: var(--color-visible40);
+        font-weight: 600;
+      }
+    }
+    div:not(:last-child) {
+      border-right: 1px solid var(--color-visible20);
     }
   }
 `;
