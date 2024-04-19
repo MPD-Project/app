@@ -4,7 +4,6 @@ import styled from "styled-components";
 import GNB from "./GNB";
 import { PATH } from "../contants/routes";
 import Login from "../pages/Login";
-import { AnyCnameRecord } from "dns";
 
 type Props = {
   children: React.ReactNode;
@@ -26,6 +25,9 @@ const GeneralLayout = ({ children }: Props  ) => {
           <LoginBtn onClick={()=> setModalOpen(!modalOpen)}>로그인</LoginBtn>
           { modalOpen ?
             <Login onClose={setModalOpen} /> : null }
+        <Link to={PATH.Login}>
+          <LoginBtn onClick={showModal}>로그인</LoginBtn>
+        </Link>
       </RightMenu>
     </GeneralLayoutContainer>
   );
@@ -57,13 +59,13 @@ const LeftMenu = styled.div`
 
 const RightMenu = styled.div`
   border-left: 1px solid var(--color-visible20);
-  padding: 1em 1em 1em 0;
+  padding: 1em 1em 1em 1.2em;
 `;
 
 const LoginBtn = styled.button`
-  position: absolute;
-  width: 200px;
-  height: 50px;
+  /* position: absolute; */
+  width: 60px;
+  height: 30px;
   color: white;
   background-color: var(--color-primary);
   border-radius: 5px;

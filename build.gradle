@@ -31,6 +31,8 @@ dependencies {
     implementation "com.querydsl:querydsl-sql"
     implementation "com.querydsl:querydsl-core"
 
+    implementation 'org.apache.tika:tika-parsers:1.20'
+
     runtimeOnly 'mysql:mysql-connector-java:8.0.17'
 
     compileOnly 'org.projectlombok:lombok'
@@ -52,6 +54,7 @@ sourceSets {
 }
 
 processResources { dependsOn "copyReactBuildFiles" }
+processResources { dependsOn "copyJsFiles" }
 
 task installReact(type: Exec) {
     workingDir "$frontendDir"
@@ -79,8 +82,19 @@ task buildReact(type: Exec) {
 
 task copyReactBuildFiles(type: Copy) {
     dependsOn "buildReact"
-    from "$frontendDir/build"
+    from("$frontendDir/build") {
+        exclude 'static/**'
+    }
     into "$projectDir/src/main/resources/static"
+
+}
+
+task copyJsFiles(type: Copy) {
+    dependsOn "copyReactBuildFiles"
+
+    from "$frontendDir/build/static/js"
+    into "$projectDir/src/main/resources/static/js"
+
 }
 
 tasks.named('test') {
