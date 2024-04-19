@@ -109,7 +109,7 @@ const SnsLogin = styled.div`
     background-color: #ffffff;
     color: var(--color-point);
     font-weight: bold;
-    border: 1px solid #ff98bd;
+    border: 1px solid rgb(255, 152, 189);
     border-radius: 5px;
     width: 330px;
     height: 40px;

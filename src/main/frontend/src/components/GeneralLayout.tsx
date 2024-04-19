@@ -4,6 +4,8 @@ import styled from "styled-components";
 import GNB from "./GNB";
 import { PATH } from "../contants/routes";
 import Login from "../pages/Login";
+import Profile from "./Profile";
+import Missingpet from "./Missingpet";
 
 type Props = {
   children: React.ReactNode;
@@ -25,6 +27,8 @@ const GeneralLayout = ({ children }: Props  ) => {
           <LoginBtn onClick={()=> setModalOpen(!modalOpen)}>로그인</LoginBtn>
           { modalOpen ?
             <Login onClose={setModalOpen} /> : null }
+        <Profile />
+        <Missingpet />
       </RightMenu>
     </GeneralLayoutContainer>
   );
