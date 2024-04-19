@@ -91,7 +91,7 @@ const JoinInfo = styled.div`
 
     span {
         font-size: 15px;
-        color: ${(props)=> props.theme.pink.veryPink};
+        color: var(--color-point);
         font-weight: bold;
         cursor: pointer;
     }

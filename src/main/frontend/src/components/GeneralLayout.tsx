@@ -25,9 +25,6 @@ const GeneralLayout = ({ children }: Props  ) => {
           <LoginBtn onClick={()=> setModalOpen(!modalOpen)}>로그인</LoginBtn>
           { modalOpen ?
             <Login onClose={setModalOpen} /> : null }
-        <Link to={PATH.Login}>
-          <LoginBtn onClick={showModal}>로그인</LoginBtn>
-        </Link>
       </RightMenu>
     </GeneralLayoutContainer>
   );
