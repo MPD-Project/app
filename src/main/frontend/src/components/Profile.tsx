@@ -28,6 +28,7 @@ const Profile = (props: Props) => {
             <dd>2017.03.19</dd>
           </div>
         </dl>
+        <button>나의 프로필 수정</button>
       </PetArea>
     </ProfileContainer>
   );
@@ -89,6 +90,17 @@ const PetArea = styled.div`
     div:not(:last-child) {
       border-right: 1px solid var(--color-visible20);
     }
+  }
+  button {
+    width: 100%;
+    height: 30px;
+    border: 1px solid var(--color-primary);
+    color: var(--color-primary);
+    font-weight: 600;
+    background-color: var(--color-visible00);
+    border-radius: 5px;
+    margin-top: 20px;
+    cursor: pointer;
   }
 `;
 export default Profile;
