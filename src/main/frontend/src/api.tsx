@@ -22,6 +22,12 @@ export const PostLogin = async ({ loginEmail, loginPassword}: ILoginUser)  => {
           loginEmail,
           loginPassword,
           //성공적인 응답 처리
+      },
+      {
+        headers: 
+          {
+          'Content-Type': 'application/x-www-form-urlencoded'
+          }
       }).then(response => {
         console.log("로그인 처리 성공" + response);
       }).catch(error => {

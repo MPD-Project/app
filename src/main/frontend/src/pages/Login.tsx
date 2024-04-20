@@ -129,7 +129,7 @@ function Login( props: any ){
   const mutation = useMutation({
     mutationFn: PostLogin,
     onSuccess: (data) => {
-      navigate(PATH.HOME);
+      console.log(data);
     },
   });
 
@@ -147,7 +147,6 @@ function Login( props: any ){
           setErrorMsg("가입되어 있지 않은 계정입니다.")
           return;
         }
-        
         mutation.mutate({ loginEmail: email, loginPassword: pwd });
   };
 

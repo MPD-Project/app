@@ -59,10 +59,12 @@ const contentVariants = {
 const ContentWarp = styled.div`
   width: 100%;
   height: calc(100vh - 60px);
+  overflow: auto;
   background-color: var(--color-visible10);
-  display: grid;
-  grid-template-columns: repeat(3, 2fr);
-  gap: 5px;
+  padding: 20px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
 `;
 
 const Content = styled(motion.div)`
