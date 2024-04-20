@@ -84,7 +84,7 @@ const JoinForm = styled.form`
 
   span {
     margin-right: 210px;
-    color: var(--color-visible50);
+    color:  var(--color-primary);
     font-weight: 550;
     font-size: 15px;
     line-height: 120%;

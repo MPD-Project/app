@@ -3,6 +3,9 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock , faX , faUnlock } from "@fortawesome/free-solid-svg-icons";
 import Join from "./Join";
+import Password from "../components/Join/Password";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { PostLogin } from "../api";
 
 
 const OverLay = styled.div`
@@ -67,13 +70,11 @@ const LoginForm = styled.form`
     cursor: pointer;
   }
 
-  a {
-    padding-right: 175px;
-    font-size: 12px;
-    color: var(--color-point);
-    font-weight: bold;
-    cursor: pointer;
-  }
+  span {
+        font-size: 13px;
+        color: var(--color-point);
+        font-weight: bolder;
+    }
 `;
 
 const JoinInfo = styled.div`
@@ -122,11 +123,24 @@ const SnsLogin = styled.div`
 `;
 
 function Login( props: any ){
+
     //로그인 처리 로직
-    const [email, setEmail] = useState("");
+    const [ email, setEmail ] = useState("");
     const [ pwd , setPwd ] = useState("");
+    const [errorMsg, setErrorMsg ] = useState("");
+
     const handleLogin = async (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if( !email ){
+          return alert ("이메일을 입력해주세요.");
+        }
+        else if( !pwd ){
+          setErrorMsg ("비밀번호를 입력해주세요");
+        }
+
+        else {
+          
+        }
     };
 
   const [seePwd, setSeePwd] = useState(true);
@@ -177,8 +191,8 @@ function Login( props: any ){
                             value={pwd}
                             onChange={(e)=>setPwd(e.currentTarget.value)}
                             />
-                        <a href="">비밀번호를 잊어버리셨나요?</a>
-                        <input type="button" value="로그인" />
+                        <span>{errorMsg}</span>
+                        <input type="submit" value="로그인" />
                     </LoginForm>
                     <JoinInfo>
                         <p>계정이 없으신가요?</p>
