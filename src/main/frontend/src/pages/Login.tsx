@@ -3,9 +3,11 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock , faX , faUnlock } from "@fortawesome/free-solid-svg-icons";
 import Join from "./Join";
-import Password from "../components/Join/Password";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import axios from "axios";
+import { useMutation } from "@tanstack/react-query";
 import { PostLogin } from "../api";
+import { Link, useNavigate } from "react-router-dom";
+import { PATH } from "../contants/routes";
 
 
 const OverLay = styled.div`
@@ -123,6 +125,13 @@ const SnsLogin = styled.div`
 `;
 
 function Login( props: any ){
+  const navigate = useNavigate();
+  const mutation = useMutation({
+    mutationFn: PostLogin,
+    onSuccess: (data) => {
+      navigate(PATH.HOME);
+    },
+  });
 
     //로그인 처리 로직
     const [ email, setEmail ] = useState("");
@@ -131,17 +140,16 @@ function Login( props: any ){
 
     const handleLogin = async (event : React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        if( !email ){
-          return alert ("이메일을 입력해주세요.");
+        if(email === "" || pwd === ""){
+          setErrorMsg("이메일 또는 비밀번호를 입력해주세요.")
+          return;
+        } else if(!email) {
+          setErrorMsg("가입되어 있지 않은 계정입니다.")
+          return;
         }
-        else if( !pwd ){
-          setErrorMsg ("비밀번호를 입력해주세요");
-        }
-
-        else {
-          
-        }
-    };
+        
+        mutation.mutate({ loginEmail: email, loginPassword: pwd });
+  };
 
   const [seePwd, setSeePwd] = useState(true);
   const pwdClick = () => {
@@ -192,11 +200,11 @@ function Login( props: any ){
                             onChange={(e)=>setPwd(e.currentTarget.value)}
                             />
                         <span>{errorMsg}</span>
-                        <input type="submit" value="로그인" />
+                        <input  type="submit" value="로그인" />
                     </LoginForm>
                     <JoinInfo>
                         <p>계정이 없으신가요?</p>
-                        <span onClick={()=> setModalOpen(!modalOpen)}>회원가입</span>
+                          <span onClick={()=> setModalOpen(!modalOpen)}>회원가입</span>
                     </JoinInfo>
                     <SnsLogin>
                         <input type="button" value="구글 로그인" />

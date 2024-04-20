@@ -1,22 +1,31 @@
 import axios from "axios";
+import { error } from "console";
 import { promises } from "dns";
 
 
 
-const BASE_URL = "http//localhost:3000";
+const BASE_URL = "http//localhost:8079/login/action";
 
 
 interface ILoginUser {
-    email: string,
-    password: string,
+    loginEmail: string,
+    loginPassword: string,
+
 };
 
 
-// 회원가입
-export const PostLogin = async ({ email, password }: ILoginUser) => {
-    const response = await axios.post(BASE_URL, {
-      email,
-      password,
-    });
-    return response;
+// 로그인
+export const PostLogin = async ({ loginEmail, loginPassword}: ILoginUser)  => {
+      //응답 성공 
+      const res = await axios.post( BASE_URL, {
+          //보내고자 하는 데이터 
+          loginEmail,
+          loginPassword,
+          //성공적인 응답 처리
+      }).then(response => {
+        console.log("로그인 처리 성공" + response);
+      }).catch(error => {
+        console.error("로그인 처리 에러 :" + error);
+      }); 
+      return res; 
   };

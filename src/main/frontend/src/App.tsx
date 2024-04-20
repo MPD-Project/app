@@ -5,10 +5,12 @@ import "@fortawesome/react-fontawesome";
 import { ThemeProvider } from "styled-components";
 import { light, dark } from "./styles/theme";
 import { GlobalStyle } from "./styles/GlobalStyle";
+
 // import { mainColors } from "./styles/mainColors";
 
 function App() {
   const [theme, setTheme] = useState("light");
+
   return (
     <>
       <ThemeProvider theme={theme === "light" ? light : dark}>
