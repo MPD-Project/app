@@ -1,8 +1,10 @@
 package org.mpd.app.configuration.security;
 
 import lombok.extern.slf4j.Slf4j;
+import org.mpd.app.configuration.security.filter.SecurityAuthenticationFilter;
 import org.mpd.app.configuration.security.handler.AuthAccessDeniedHandler;
 import org.mpd.app.configuration.security.handler.AuthEntryPointHandler;
+import org.mpd.app.configuration.security.handler.login.AuthLoginSuccessHandler;
 import org.mpd.app.configuration.security.provider.SecurityAuthenticationProvider;
 import org.mpd.app.global.GlobalUrl;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
@@ -16,7 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @Slf4j
@@ -28,16 +30,28 @@ public class SecurityConfig {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager() {
-        return new ProviderManager(securityAuthenticationProvider());
-    }
+    public AuthenticationManager authenticationManager() { return new ProviderManager(securityAuthenticationProvider());}
 
     @Bean
     public SecurityAuthenticationProvider securityAuthenticationProvider() { return new SecurityAuthenticationProvider(securityPasswordEncoder()); }
 
     @Bean
+    public AuthLoginSuccessHandler loginSuccessHandler() {  return new AuthLoginSuccessHandler(); }
+
+    @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring().mvcMatchers("/favicon.ico").requestMatchers(PathRequest.toStaticResources().atCommonLocations());
+    }
+
+    @Bean
+    public SecurityAuthenticationFilter securityAuthenticationFilter() {
+
+        SecurityAuthenticationFilter securityAuthenticationFilter = new SecurityAuthenticationFilter(authenticationManager());
+        securityAuthenticationFilter.setFilterProcessesUrl("/login/action");
+        securityAuthenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+        securityAuthenticationFilter.afterPropertiesSet();
+
+        return securityAuthenticationFilter;
     }
 
     @Bean
@@ -64,6 +78,8 @@ public class SecurityConfig {
         http.exceptionHandling()
                 .accessDeniedHandler(new AuthAccessDeniedHandler())
                 .authenticationEntryPoint(new AuthEntryPointHandler());
+
+        http.addFilterBefore(securityAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         
         return http.build();
     }
