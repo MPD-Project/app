@@ -3,10 +3,9 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faLock , faX , faUnlock } from "@fortawesome/free-solid-svg-icons";
 import Join from "./Join";
-import axios from "axios";
 import { useMutation } from "@tanstack/react-query";
 import { PostLogin } from "../api";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { PATH } from "../contants/routes";
 
 
@@ -125,11 +124,13 @@ const SnsLogin = styled.div`
 `;
 
 function Login( props: any ){
+
   const navigate = useNavigate();
   const mutation = useMutation({
     mutationFn: PostLogin,
     onSuccess: (data) => {
       console.log(data);
+      navigate(PATH.HOME);
     },
   });
 
@@ -139,12 +140,12 @@ function Login( props: any ){
     const [errorMsg, setErrorMsg ] = useState("");
 
     const handleLogin = async (event : React.FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        if(email === "" || pwd === ""){
-          setErrorMsg("이메일 또는 비밀번호를 입력해주세요.")
+      event.preventDefault();
+      if(email === "" || pwd === ""){
+          setErrorMsg("이메일 또는 비밀번호를 입력해주세요.");
           return;
         } else if(!email) {
-          setErrorMsg("가입되어 있지 않은 계정입니다.")
+          setErrorMsg("가입되어 있지 않은 계정입니다.");
           return;
         }
         mutation.mutate({ loginEmail: email, loginPassword: pwd });

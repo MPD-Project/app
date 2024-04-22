@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { useForm } from "react-hook-form";
+import { PostJoin } from "../../api";
+import { useMutation } from "@tanstack/react-query";
+import { error } from "console";
 
 const JoinNext = styled.div`
   position: absolute;
@@ -89,7 +92,32 @@ function Email({ setStep }: Props) {
   const {
     register,
     formState: { errors },
+    handleSubmit,
+    setError,
   } = useForm<FormData>();
+
+  const mutation = useMutation({
+    mutationFn: PostJoin,
+    onSuccess: (data) => {
+      <NextBtn onClick={() => setStep(2)} />
+    },
+    onError : (data) => {
+      setError("email", {message : "이메일을 확인해 주세요."}
+      )
+    }
+  });
+
+  const EmailValue = (data : FormData) => {
+    const { email } = data;
+    if(!data.email) {
+      setError(
+        "email",
+        { message : "이미 존재하는 이메일 입니다."}, 
+      )
+    }
+    mutation.mutate({ joinEmail: email });
+  }
+
   return (
     <>
       <JoinNext>
@@ -103,7 +131,7 @@ function Email({ setStep }: Props) {
         <span>계정으로 사용할</span>
         <span>이메일을 입력해주세요.</span>
       </JoinInfo>
-      <JoinForm>
+      <JoinForm onSubmit={handleSubmit(EmailValue)}>
         <input
           {...register("email", {
             required: {
@@ -119,7 +147,7 @@ function Email({ setStep }: Props) {
         />
       </JoinForm>
       <ERROR>{errors.email?.message}</ERROR>
-      <NextBtn onClick={() => setStep(2)}>다음</NextBtn>
+      <NextBtn>다음</NextBtn>
     </>
   );
 }

@@ -40,7 +40,7 @@ const Header = () => {
 
 const DiaryHeader = styled.div`
   width: 810px;
-  height: 66.75px;
+  height: 60px;
   border-bottom: 1px solid rgba(223, 223, 223, 1);
   display: flex;
   background-color: white;

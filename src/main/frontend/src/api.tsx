@@ -13,6 +13,12 @@ interface ILoginUser {
 
 };
 
+interface IJoinUser {
+  joinEmail: string,
+};
+
+
+
 
 // 로그인
 export const PostLogin = async ({ loginEmail, loginPassword}: ILoginUser)  => {
@@ -35,3 +41,20 @@ export const PostLogin = async ({ loginEmail, loginPassword}: ILoginUser)  => {
       }); 
       return res; 
   };
+
+  export const PostJoin = async ({ joinEmail } : IJoinUser) => {
+    const res = await axios.post(BASE_URL, {
+      joinEmail,
+    },
+    {
+      headers: 
+        {
+        'Content-Type': 'application/x-www-form-urlencoded'
+        }
+    }).then(response => {
+      console.log("회원 가입 처리 성공" + response);
+    }).catch(error => {
+      console.error("회원가입 처리 에러" + error);
+    }); 
+    return res; 
+  }
