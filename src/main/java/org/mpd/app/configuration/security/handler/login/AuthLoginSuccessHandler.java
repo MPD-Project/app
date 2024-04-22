@@ -1,20 +1,20 @@
 package org.mpd.app.configuration.security.handler.login;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.mpd.app.model.response.ResponseModel;
 import org.mpd.app.model.session.SessionModel;
-import org.mpd.app.util.servlet.ServletUtils;
 import org.mpd.app.util.session.SessionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationSuccessHandler;
-import org.springframework.stereotype.Component;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.io.OutputStream;
 
-@Component
 @Slf4j
 public class AuthLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
@@ -24,21 +24,34 @@ public class AuthLoginSuccessHandler extends SimpleUrlAuthenticationSuccessHandl
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException, ServletException {
 
-        String useremail = authentication.getPrincipal().toString();
+        String userEmail = authentication.getPrincipal().toString();
 
         SessionModel sessionModel = SessionModel.builder()
-                .email(useremail)
+                .email(userEmail)
                 .build();
 
         sessionUtils.setUserSession(sessionModel);
 
-        boolean ajaxRequest = ServletUtils.isAjaxRequest();
-
-        if(ajaxRequest) {
-
-        }
+        sendResponse(response, ResponseModel.ofSuccess());
 
     }
 
+    private void sendResponse(HttpServletResponse response, ResponseModel model) {
+
+        try {
+
+            OutputStream out = null;
+            ObjectMapper om = new ObjectMapper();
+            String jsonString = om.writeValueAsString(model);
+
+            out = response.getOutputStream();
+            out.write(jsonString.getBytes());
+            out.flush();
+
+        } catch(Exception e) {
+            log.error("LoginSuccessHandler sendResponse Error!!", e);
+        }
+
+    }
 
 }

@@ -4,6 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.mpd.app.configuration.security.filter.SecurityAuthenticationFilter;
 import org.mpd.app.configuration.security.handler.AuthAccessDeniedHandler;
 import org.mpd.app.configuration.security.handler.AuthEntryPointHandler;
+import org.mpd.app.configuration.security.handler.login.AuthLoginFailureHandler;
 import org.mpd.app.configuration.security.handler.login.AuthLoginSuccessHandler;
 import org.mpd.app.configuration.security.provider.SecurityAuthenticationProvider;
 import org.mpd.app.global.GlobalUrl;
@@ -39,6 +40,9 @@ public class SecurityConfig {
     public AuthLoginSuccessHandler loginSuccessHandler() {  return new AuthLoginSuccessHandler(); }
 
     @Bean
+    public AuthLoginFailureHandler loginFailureHandler() { return new AuthLoginFailureHandler(); }
+
+    @Bean
     public WebSecurityCustomizer configure() {
         return (web) -> web.ignoring().mvcMatchers("/favicon.ico").requestMatchers(PathRequest.toStaticResources().atCommonLocations());
     }
@@ -49,6 +53,7 @@ public class SecurityConfig {
         SecurityAuthenticationFilter securityAuthenticationFilter = new SecurityAuthenticationFilter(authenticationManager());
         securityAuthenticationFilter.setFilterProcessesUrl("/login/action");
         securityAuthenticationFilter.setAuthenticationSuccessHandler(loginSuccessHandler());
+        securityAuthenticationFilter.setAuthenticationFailureHandler(loginFailureHandler());
         securityAuthenticationFilter.afterPropertiesSet();
 
         return securityAuthenticationFilter;

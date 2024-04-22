@@ -25,7 +25,7 @@ public class SecurityAuthenticationFilter extends UsernamePasswordAuthentication
 
         try {
             setUsernameParameter("loginEmail");
-            setPasswordParameter("loginPwd");
+            setPasswordParameter("loginPassword");
             authRequest = getAuthRequest(request);
             setDetails(request, authRequest);
         } catch(Exception e) {
